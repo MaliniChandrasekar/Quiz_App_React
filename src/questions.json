@@ -1,0 +1,68 @@
+[
+    {
+        "id" : 1,
+        "question" : "What is the largest planet in our solar system?",
+        "options" : ["Earth", "Mars", "Jupiter", "Saturn", "Neptune"],
+        "correctOption" : "Jupiter"
+    },
+    {
+        "id" : 2,
+        "question" : "Who wrote the play Romeo and Juliet?",
+        "options" : ["Jane Austen", "Mark Twain", "William Shakespeare", "J.K. Rowling", "Charles Dickens"],
+        "correctOption" : "William Shakespeare"
+    },
+    {
+        "id" : 3,
+        "question" : "How many continents are there on Earth?",
+        "options" : ["5", "6", "7", "8", "9"],
+        "correctOption" : "7"
+    },
+    {
+        "id" : 4,
+        "question" : "What is the largest mammal on Earth?",
+        "options" : ["Orca", "Giraffe", "Great White Shark", "Blue Whale", "Elephant"],
+        "correctOption" : "Blue Whale"
+    },
+    {
+        "id" : 5,
+        "question" : "Which ocean is the largest?",
+        "options" : ["Atlantic", "Indian", "Arctic", "Pacific", "Southern"],
+        "correctOption" : "Pacific"
+    },
+    {
+        "id" : 6,
+        "question" : "What is the capital of France?",
+        "options" : ["Berlin", "Madrid", "Rome", "Paris", "Lisbon"],
+        "correctOption" : "Paris"
+    },
+    {
+        "id" : 7,
+        "question" : "Which planet is known as the “Red Planet”?",
+        "options" : ["Venus", "Jupiter", "Earth", "Mars", "Saturn"],
+        "correctOption" : "Mars"
+    },
+    {
+        "id" : 8,
+        "question" : "Who was the first person to step on the Moon?",
+        "options" : ["Neil Armstrong", "Yuri Gagarin", "Michael Collins", "Buzz Aldrin", "Alan Shepard"],
+        "correctOption" : "Neil Armstrong"
+    },
+    {
+        "id" : 9,
+        "question" : "In which country did the Olympic Games originate?",
+        "options" : ["Turkey", "Egypt", "Italy", "France", "Greece"],
+        "correctOption" : "Greece"
+    },
+    {
+        "id" : 10,
+        "question" : "What is the smallest prime number?",
+        "options" : ["0", "1", "2", "3", "5"],
+        "correctOption" : "2"
+    }
+    ,{
+        "id" : 11,
+        "question" : "Who is known as the “Father of Computers”?",
+        "options" : ["Tim Berners-Lee", "Bill Gates", "Steve Jobs", "Charles Babbage", "Alan Turing"],
+        "correctOption" : "Charles Babbage"
+    }
+]
