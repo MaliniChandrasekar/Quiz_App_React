@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import './App.css'; // You may want to keep this for any custom styles
+import './App.css';
 import questionData from "./questions.json";
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [currentQues, setCurrentQues] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const [wrongQuestions, setWrongQuestions] = useState([]);
+  const [selectOption, setSelectOption] = useState([]);
   const [timer, setTimer] = useState(10);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  const [quizStarted, setQuizStarted] = useState(false); // State to manage quiz start
+  const [quizStarted, setQuizStarted] = useState(false);
 
   const getRandomQuestions = (data, count) => {
     const shuffled = [...data].sort(() => 0.5 - Math.random());
@@ -18,10 +18,9 @@ function App() {
   };
 
   useEffect(() => {
-    // Initialize questions on mount
     const randomQuestions = getRandomQuestions(questionData, 5);
     setSelectedQuestions(randomQuestions);
-    resetQuiz(); // Reset quiz state
+    resetQuiz();
   }, []);
 
   const resetQuiz = () => {
@@ -29,24 +28,29 @@ function App() {
     setScore(0);
     setShowScore(false);
     setTimer(10);
-    setWrongQuestions([]);
+    setSelectOption([]);
   };
 
   const startQuiz = () => {
-    resetQuiz(); 
-    setQuizStarted(true); 
+    resetQuiz();
+    setQuizStarted(true);
   };
 
   const handleAnswer = (selectedOption) => {
     if (selectedQuestions[currentQues]) {
       if (selectedOption === selectedQuestions[currentQues].correctOption) {
         setScore((prevScore) => prevScore + 1);
-      } else {
-        setWrongQuestions((prevWrongQuestions) => [
-          ...prevWrongQuestions,
-          { ...selectedQuestions[currentQues], questionNumber: currentQues + 1 },
-        ]);
       }
+
+      setSelectOption((prevOptions) => [
+        ...prevOptions,
+        {
+          questionNumber: currentQues + 1,
+          question: selectedQuestions[currentQues].question,
+          selectedOption: selectedOption,
+          correctOption: selectedQuestions[currentQues].correctOption
+        }
+      ]);
 
       if (currentQues < selectedQuestions.length - 1) {
         setCurrentQues((prevQuestion) => prevQuestion + 1);
@@ -61,7 +65,7 @@ function App() {
     setQuizStarted(false);
     const randomQuestions = getRandomQuestions(questionData, 5);
     setSelectedQuestions(randomQuestions);
-    resetQuiz(); // Reset quiz state
+    resetQuiz();
   };
 
   useEffect(() => {
@@ -80,34 +84,35 @@ function App() {
   return (
     <div className="container text-center">
       <div className='quiz-app'>
-      {quizStarted && <div className='timeout text-danger'>{timer === 0 ? "TIME OUT!" : ""}</div>}
-        {!quizStarted ? ( 
+        {quizStarted && <div className='timeout text-danger'>{timer === 0 ? "TIME OUT!" : ""}</div>}
+        {!quizStarted ? (
           <div>
-          <p className='text-danger'>
-            Welcome to the Quiz App! Here are some quick instructions to get started:
-          </p>
-          <ul className='text-danger  text-muted text-left instructions-list font-weight-bold'>
-            <li>There are 5 questions in this quiz.</li>
-            <li>Each question has a 10-second timer.</li>
-            <li>Select the correct option for each question.</li>
-            <li>After completing all questions, your score will be displayed.</li>
-          </ul>
-          <p className='text-primary font-weight-bold'>Good luck!</p>
-          <button className='btn btn-primary mt-3' onClick={startQuiz}>Start Now</button>
-        </div>
+            <p className='text-danger'>
+              Welcome to the Quiz App! Here are some quick instructions to get started:
+            </p>
+            <ul className='text-danger  text-muted text-left instructions-list font-weight-bold'>
+              <li>There are 5 questions in this quiz.</li>
+              <li>Each question has a 10-second timer.</li>
+              <li>Select the correct option for each question.</li>
+              <li>After completing all questions, your score will be displayed.</li>
+            </ul>
+            <p className='text-primary font-weight-bold'>Good luck!</p>
+            <button className='btn btn-primary mt-3' onClick={startQuiz}>Start Now</button>
+          </div>
         ) : showScore ? (
           <div className='score-section'>
             <h2>Your score: {score} / 5</h2>
-            {wrongQuestions.length > 0 ? (
-              wrongQuestions.map((question, index) => (
-                <div key={index} className='wrong p-3 border border-danger rounded my-2'>
-                  <p className='font-weight-bold'>Question {question.questionNumber}: {question.question}</p>
-                  <span className='correct'>Correct Answer: {question.correctOption}</span>
+            {selectOption.map((option, index) => (
+              <div key={index} className={` border rounded p-1 ${option.selectedOption === option.correctOption ? 'border-success' : 'border-danger'}`}>
+                <p className='font-weight-bold'>Question {option.questionNumber}: {option.question}</p>
+                <div className='d-flex justify-content-around'>
+                <p>Your Answer: <span className={option.selectedOption === option.correctOption ? 'text-success' : 'text-danger'}>{option.selectedOption}</span></p>
+                {option.selectedOption !== option.correctOption && (
+                  <p>Correct Answer: <span className='text-primary'>{option.correctOption}</span></p>
+                )}
                 </div>
-              ))
-            ) : (
-              <p className="text-success">Great job! All answers were correct!</p>
-            )}
+              </div>
+            ))}
             <button className='btn btn-danger mt-3' onClick={handleRestart}>Restart</button>
           </div>
         ) : (
