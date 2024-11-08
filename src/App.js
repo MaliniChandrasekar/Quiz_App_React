@@ -90,7 +90,7 @@ function App() {
             <p className='text-danger'>
               Welcome to the Quiz App! Here are some quick instructions to get started:
             </p>
-            <ul className='text-danger  text-muted text-left instructions-list font-weight-bold'>
+            <ul className='clr text-left instructions-list font-weight-bold'>
               <li>There are 5 questions in this quiz.</li>
               <li>Each question has a 10-second timer.</li>
               <li>Select the correct option for each question.</li>
@@ -103,16 +103,21 @@ function App() {
           <div className='score-section'>
             <h2>Your score: {score} / 5</h2>
             {selectOption.map((option, index) => (
-              <div key={index} className={` border rounded p-1 ${option.selectedOption === option.correctOption ? 'border-success' : 'border-danger'}`}>
-                <p className='font-weight-bold'>Question {option.questionNumber}: {option.question}</p>
-                <div className='d-flex justify-content-around'>
-                <p>Your Answer: <span className={option.selectedOption === option.correctOption ? 'text-success' : 'text-danger'}>{option.selectedOption}</span></p>
-                {option.selectedOption !== option.correctOption && (
-                  <p>Correct Answer: <span className='text-primary'>{option.correctOption}</span></p>
-                )}
+              <div>
+              {option.selectedOption !== option.correctOption ? (
+                <div key={index} className="border rounded p-1 border-danger">
+                  <p className="font-weight-bold">Question {option.questionNumber}: {option.question}</p>
+                  <div className="d-flex justify-content-around">
+                    <p>Your Answer: <span className="text-danger">{option.selectedOption}</span></p>
+                    <p>Correct Answer: <span className="text-primary">{option.correctOption}</span></p>
+                  </div>
                 </div>
-              </div>
+              ) : null}
+            </div>
+            
             ))}
+              
+              
             <button className='btn btn-danger mt-3' onClick={handleRestart}>Restart</button>
           </div>
         ) : (
